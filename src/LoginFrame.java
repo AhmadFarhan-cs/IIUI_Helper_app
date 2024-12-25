@@ -60,8 +60,8 @@ public class LoginFrame extends JFrame implements ActionListener{
         signUp.addActionListener(this);
 
         this.add(signUp);
-        devImage = new ImageIcon("./Assets/IMG_20241202_164340_081.jpg");
-        logoImage = new ImageIcon("./Assets/IIU_Logo.png");
+        devImage = new ImageIcon(getClass().getResource("/images/IMG_20241202_164340_081.jpg"));
+        logoImage = new ImageIcon(getClass().getResource("/images/IIU_Logo.png"));
 
         Image scaledImage = logoImage.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);

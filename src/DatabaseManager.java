@@ -1,5 +1,10 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,30 +14,56 @@ import java.util.List;
 *
 * Handles all database operations
 *
-* */
+* */import java.io.*;
+import java.nio.file.*;
+import java.sql.*;
+
 public class DatabaseManager {
     private String url;
     Connection conn;
 
-    DatabaseManager(){
-        url = "jdbc:sqlite:./Database/iiuihelper";
+    public DatabaseManager() {
+        try {
+            // Define the persistent location for the database
+            File databaseDir = new File(System.getProperty("user.home"), "iiuihelper"); // Example: store in user's home directory
+            File dbFile = new File(databaseDir, "iiuihelper.db");
+
+            // Check if the database file exists in the persistent location
+            if (!dbFile.exists()) {
+                // Load the database from resources (inside the JAR) and copy it to the persistent location
+                InputStream dbInputStream = getClass().getResourceAsStream("/database/iiuihelper");
+                if (dbInputStream != null) {
+                    databaseDir.mkdirs();  // Ensure the directory exists
+                    Files.copy(dbInputStream, dbFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                } else {
+                    throw new RuntimeException("Database resource not found in JAR");
+                }
+            }
+            url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
+            System.out.println(dbFile.getAbsolutePath());
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading database from resources: " + e.getMessage(), e);
+        }
     }
 
-    public  void createConnection(){
+    public void createConnection() {
         try {
             conn = DriverManager.getConnection(url);
-
-  } catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-     }
+        }
     }
-    public void closeConnection(){
+
+    public void closeConnection() {
         try {
-            conn.close();
+            if (conn != null) {
+                conn.close();
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 /*
 * Method to let a student log in
 * will return true if the  student is found in the database

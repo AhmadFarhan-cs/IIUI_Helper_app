@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="IIUI Helper app:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/IIUI_Helper_app_jar</output-path>
+    <root id="archive" name="IIUI Helper app.jar">
+      <element id="module-output" name="IIUI Helper app" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/sqlite-jdbc-3.43.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/slf4j-api-2.0.9.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
