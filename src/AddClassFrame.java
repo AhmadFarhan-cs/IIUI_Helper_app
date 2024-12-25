@@ -91,6 +91,7 @@ class AddClassFrame extends JFrame {
             }
 
         });
+        confirm.setBackground(Color.GREEN);
         this.add(confirm);
 
 

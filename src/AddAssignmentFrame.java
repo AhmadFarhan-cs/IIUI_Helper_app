@@ -143,6 +143,7 @@ class AddAssignmentFrame extends JFrame {
             }
 
         });
+        confirm.setBackground(Color.GREEN);
         this.add(confirm);
 
 

@@ -4,7 +4,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+/*
+* Database manager class
+*
+* Handles all database operations
+*
+* */
 public class DatabaseManager {
     private String url;
     Connection conn;
@@ -16,7 +21,7 @@ public class DatabaseManager {
     public  void createConnection(){
         try {
             conn = DriverManager.getConnection(url);
-          System.out.println("Connection to SQLite has been established.");
+
   } catch (SQLException e) {
             System.out.println(e.getMessage());
      }
@@ -28,7 +33,11 @@ public class DatabaseManager {
             throw new RuntimeException(e);
         }
     }
-
+/*
+* Method to let a student log in
+* will return true if the  student is found in the database
+*
+* */
 
     public boolean validateLogin(String email,String password) {
         createConnection();
@@ -59,6 +68,12 @@ public class DatabaseManager {
 
 
     }
+    /*
+    * Method to retrieve all the students info from database
+    *
+    *
+    *
+    * */
 
     public Student getStudent(String email) {
 
@@ -98,7 +113,12 @@ public class DatabaseManager {
 
         return null;
     }
-
+/*
+*
+* This method will query the database for all ongoing courses
+* and return a table model to be used with a j table
+*
+* */
 
     public DefaultTableModel loadOngoingCourseTableData(Student student ) {
         try {
@@ -153,7 +173,11 @@ public class DatabaseManager {
 
         return null;
     }
-
+/*
+*
+* same thing but for completed courses
+*
+* */
     public DefaultTableModel loadCompletedCourseTableData(Student student ) {
         try {
             createConnection();
@@ -207,7 +231,6 @@ public class DatabaseManager {
 
         return null;
     }
-
 
 
     public String getCourseDetails(String cCode){
